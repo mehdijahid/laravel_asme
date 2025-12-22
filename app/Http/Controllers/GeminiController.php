@@ -38,7 +38,7 @@ class GeminiController extends Controller
                             [
                                 'role' => 'user',
                                 'parts' => [
-                                    ['text' => 'Tell me about this image'],
+                                    ['text' => 'Tell me about this image in 3 or four lines en francais'],
                                     [
                                         'inlineData' => [
                                             'mimeType' => $mimeType,
