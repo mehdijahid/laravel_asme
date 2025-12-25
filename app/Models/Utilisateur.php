@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;    
-
+use App\Models\Image;
 class Utilisateur extends Authenticatable
 {
     use Notifiable;
@@ -20,4 +20,7 @@ class Utilisateur extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
 }
