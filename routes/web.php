@@ -1,7 +1,11 @@
 <?php
+
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TableAdminController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -15,7 +19,11 @@ Route::post('/login',[LoginController::class,'Login'])->name('login');
 Route::get('/user/dashboard',function(){
     return view('user.dashboard');
 })->name('user.dashboard');
-Route::get('/admin/dashboard',function(){
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/tables', [TableAdminController::class, 'index'])->name('tables');
+    Route::put('/users/{id}', [TableAdminController::class, 'update'])->name('update');
+    Route::delete('/users/{id}', [TableAdminController::class, 'destroy'])->name('destroy');
+});
+
 
