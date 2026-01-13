@@ -45,7 +45,8 @@ class LoginController extends Controller
         Utilisateur::create([
             'nom' => $request->nom,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'role' => 'user', // Add this
         ]);
         return redirect()->route('loginform');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
+use App\Models\Image;
 use Illuminate\Support\Facades\Hash;
 
 class TableAdminController extends Controller
@@ -12,12 +13,12 @@ class TableAdminController extends Controller
     /**
      * Afficher la liste des utilisateurs
      */
-    public function index()
-    {
-        $userstable = Utilisateur::all();
-        $images = Utilisateur::withCount('images')->get();
-        return view('admin.tables', compact('userstable', 'images'));
-    }
+ public function index()
+{
+    $userstable = Utilisateur::withCount('images')->get();
+     $images = Image::all(); 
+    return view('admin.tables', compact('userstable'));
+}
 
     /**
      * Mettre à jour un utilisateur
@@ -49,13 +50,10 @@ class TableAdminController extends Controller
     /**
      * Supprimer un utilisateur
      */
-    public function destroy($id)
-    {
-        $user = Utilisateur::findOrFail($id);
-        
-
-        $user->delete();
-
-        return redirect()->route('admin.tables')->with('success', 'Utilisateur supprimé avec succès !');
-    }
-}
+   public function destroy($id)
+           {
+    $user = Utilisateur::findOrFail($id);
+    $user->images()->delete(); // Delete related images
+    $user->delete();
+    return redirect()->route('admin.tables')->with('success', 'Utilisateur supprimé avec succès !');
+} }

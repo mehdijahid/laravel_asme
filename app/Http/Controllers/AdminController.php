@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 class AdminController extends Controller
 {
@@ -59,4 +60,13 @@ class AdminController extends Controller
     {
         //
     }
+    public function logout(Request $request)
+{
+    Auth::guard('web')->logout();  // or 'admin' if you have a separate guard
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect(' /');
+}
+
 }

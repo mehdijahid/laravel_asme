@@ -8,8 +8,8 @@ use App\Http\Controllers\TableAdminController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
 
 Route::get('/gemini', [GeminiController::class, 'index'])->name('gemini.index');
 Route::middleware(['auth'])->group(function () {
@@ -31,3 +31,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/tables', [TableAdminController::class, 'index'])->name('admin.tables');

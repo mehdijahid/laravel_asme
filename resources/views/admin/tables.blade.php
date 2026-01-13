@@ -83,14 +83,22 @@
                             <img class="rounded-circle me-lg-2" src="{{ asset('startbootstrap/admin/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->nom ?? 'John Doe' }}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <form method="POST" action="" style="display: inline;">
-                                @csrf
-                                <button type="submit" class="dropdown-item" style="border: none; background: none; cursor: pointer;">Log Out</button>
-                            </form>
-                        </div>
+                       <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+    <a href="#" class="dropdown-item">My Profile</a>
+    <a href="#" class="dropdown-item">Settings</a>
+
+    <!-- Logout form -->
+    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    <!-- Logout button -->
+    <a href="#" class="dropdown-item"
+       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+       Log Out
+    </a>
+</div>
+
                     </div>
                 </div>
             </nav>
@@ -242,7 +250,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($images as $user)
+                                        @forelse($userstable as $user)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $user->nom }}</td>
