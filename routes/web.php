@@ -30,7 +30,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/users/{id}', [TableAdminController::class, 'destroy'])->name('destroy');
 });
 
-
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
