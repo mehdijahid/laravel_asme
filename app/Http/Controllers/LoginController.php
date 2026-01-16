@@ -2,37 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\AuthServiceInterface;
 use Illuminate\Http\Request;
-use App\Models\Utilisateur;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function LoginForm(){
+    protected $authService;
+
+    public function __construct(AuthServiceInterface $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    public function LoginForm()
+    {
         return view('authentification.login');
     }
-    public function Login(Request $request){
-        $donnes = $request->validate([
-            'email'=>'required|string',
-            'password'=>'required|string',
+
+    public function Login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
         ]);
-        if(Auth::attempt($donnes)){
-            $request->session()->regenerate();
-            if(Auth::user()->role == 'admin'){
+
+        if ($this->authService->authenticate($credentials, $request)) {
+            if ($this->authService->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             }
             return redirect()->route('user.dashboard');
-        };
-         return back()->withErrors([
+        }
+
+        return back()->withErrors([
             'email' => 'Email ou mot de passe incorrect',
         ]);
     }
+
     public function registerForm()
     {
         return view('authentification.register');
     }
-
 
     public function register(Request $request)
     {
@@ -42,12 +51,8 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        Utilisateur::create([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user', // Add this
-        ]);
+        $this->authService->register($request->only(['nom', 'email', 'password']));
+        
         return redirect()->route('loginform');
     }
 }
