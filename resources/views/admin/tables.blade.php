@@ -44,9 +44,6 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-                <a href="{{route('admin.dashboard')}}" class="navbar-brand mx-4 mb-3">
-                    <h3 style="color: #ffd000;"><i class="fa fa-user-edit me-2"></i>DarkPan</h3>
-                </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="{{ asset('startbootstrap/admin/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
@@ -84,20 +81,15 @@
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->nom ?? 'John Doe' }}</span>
                         </a>
                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-    <a href="#" class="dropdown-item">My Profile</a>
-    <a href="#" class="dropdown-item">Settings</a>
-
-    <!-- Logout form -->
-    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-
-    <!-- Logout button -->
-    <a href="#" class="dropdown-item"
-       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-       Log Out
-    </a>
-</div>
+                        <!-- Logout form -->
+                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a href="#" class="dropdown-item"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Log Out
+                        </a>
+                    </div>
 
                     </div>
                 </div>

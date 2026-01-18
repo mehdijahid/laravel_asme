@@ -18,7 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/historique', [UserController::class, 'historique'])->name('user.historique');
     Route::delete('/user/images/{id}', [UserController::class, 'deleteImage'])->name('user.deleteImage');
 });
-Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
+Route::post('logout', [UserController::class, 'logout'])->name('user.logout');
 Route::get('/loginform',[LoginController::class,'LoginForm'])->name('loginform');
 Route::get('/registerform',[LoginController::class,'registerForm'])->name('registerform');
 Route::post('/register',[LoginController::class,'register'])->name('register');
@@ -30,11 +30,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/users/{id}', [TableAdminController::class, 'destroy'])->name('destroy');
 });
 
-Route::post('/logout', function (Request $request) {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/');
-})->name('logout');
+
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 Route::get('/admin/tables', [TableAdminController::class, 'index'])->name('admin.tables');

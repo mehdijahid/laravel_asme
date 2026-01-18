@@ -1,3 +1,28 @@
 
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+/* Bouton Logout */
+.btn-logout {
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-right: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.btn-logout:hover {
+    color: #ffdb33;
+    background-color: rgba(255, 219, 51, 0.1);
+    text-shadow: 0 0 10px rgba(255, 219, 51, 0.5);
+}

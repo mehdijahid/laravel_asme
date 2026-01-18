@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $this->userService->logoutUser($request);
         
-        return redirect()->route('gemini.index')
+        return redirect()->route('home')
                         ->with('success', 'Vous avez été déconnecté avec succès');
     }
 }
