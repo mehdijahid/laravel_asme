@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse justify-content-end me-5" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{route('home')}}">
             <i class="bi bi-house-door-fill"></i>
             Home
           </a>
